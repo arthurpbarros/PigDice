@@ -1,2 +1,2 @@
-g++ -Wall -std=c++11 -I include/  src/dice.cpp src/game.cpp -o exe
+g++ -Wall -std=c++11 -I include/  src/main.cpp src/game.cpp -o exe
 ./exe

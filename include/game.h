@@ -11,7 +11,9 @@ using namespace std;
 * @return true, caso algum jogador venceu o jogo e false caso contrário
 */ 
 bool flow(const Game & g);
-
+/*!	Brief Captura a escolhar de um jogador(ou ia), um de cada vez
+*
+*/
 void capture_events(Game * game);
 /*!	Brief Informa qual usuário venceu o jogo
 * @return mensagem sobre o vencedor.
@@ -25,6 +27,8 @@ void set_rand();
 * @return Face obtida aṕos o lançamento
 */
 int roll (const Dice * dice);
-
+/*! Brief Fornece parâmetros iniciais para o jogo, como quantidade de jogadores e pontuação máxima 
+* @return Retorna se os parâmetros são válidos
+*/
 bool input_params(Game & game);
 #endif 

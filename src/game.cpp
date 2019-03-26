@@ -3,25 +3,42 @@ bool flow(const Game & g){
 	size_t i;
 	for(i = 0; i < g.n;i++){
 		if(g.players[i].total >= 100){
-			cout << winner(&g.players[i]) << endl;
+			winner(&g.players[i]);
 			return false;
 		}
 	}
 	return true;
 
 }
+void hold(Player *p){
+	p->total += p->partial;
+}
+void play(Game * game){
+	int face = roll(&game->dice);
+	size_t * score_partial = &game->players[game->vez].partial;
+	if(face == 1){
+		*score_partial += 0; //Zera a pontuação parcial
+		show_turn(game);
+	}else{
+		*score_partial += face;
+	}
+}
 void capture_events(Game * game){
 	string res;
 	cout << "Digite algo para SEGURAR o dado ou Tecle [ENTER] para ROLAR o dado" << endl;
 	cin.ignore();
 	getline(cin,res);
+	int vez = game->vez % game->n;
 	if(res == ""){
-		cout << "rolar" << endl;
+		//cout << "rolar" << endl;
+		play(game);
 	}else{
-		cout << "segurar" << endl;
+		//cout << "segurar" << endl;
+		hold(&game->players[vez]);
+		show_turn(game);
 	}
 }
-string winner(const Player * p){
+void winner(const Player * p){
 	std::ostringstream oss;
 	if(p->is_ia){
 		oss << "!!!!!!!!! O(A) COMPUTADOR(I.A.) ";
@@ -32,7 +49,7 @@ string winner(const Player * p){
 		oss << p->id;
 		oss << " venceu o jogo !!!!!!!!!";
 	}
-	return oss.str();
+	cout << oss.str() << endl;
 }
 void set_rand(){
 	srand(time(NULL));
@@ -64,4 +81,17 @@ bool input_params(Game & game){
 	}else{
 		return false;
 	}
+}
+void show_turn(Game * game){
+	game->vez++;
+	std::ostringstream oss;
+	bool player_is_ia = game->players[game->vez % game->n].is_ia;
+	oss << "!!!!!!!!! É A VEZ D";
+	if(player_is_ia){
+		oss << "A I.A !!!!!!!!!";
+	}else{
+		oss << "O JOGADOR !!!!!!!!";
+		oss << game->players[game->vez % game->n].id;
+	}
+	cout << oss.str() << endl;
 }

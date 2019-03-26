@@ -11,14 +11,22 @@ using namespace std;
 * @return true, caso algum jogador venceu o jogo e false caso contrário
 */ 
 bool flow(const Game & g);
+/*! Brief Segura o dado, isto é, credita a pontuação parcial a pontuação total
+* @param Jogador que escolheu a opção segurar
+*/
+void hold(Player *p);
+/*! Brief Rola o dado, adicionando o valor da face a pontuação parcial.
+* @param Jogador que escolheu a opção rolar
+*/
+void play(Game * game);
 /*!	Brief Captura a escolhar de um jogador(ou ia), um de cada vez
 *
 */
 void capture_events(Game * game);
 /*!	Brief Informa qual usuário venceu o jogo
-* @return mensagem sobre o vencedor.
+* @param Jogador atual
 */ 
-string winner(const Player * p);
+void winner(const Player * p);
 /*!	Brief Fornece semente a função rand()
 */ 
 void set_rand(); 
@@ -28,7 +36,12 @@ void set_rand();
 */
 int roll (const Dice * dice);
 /*! Brief Fornece parâmetros iniciais para o jogo, como quantidade de jogadores e pontuação máxima 
+* @param Dado do jogo
 * @return Retorna se os parâmetros são válidos
 */
 bool input_params(Game & game);
+/*! Brief Passa a vez e exibe qual jogador ira jogar 
+* @param struct Game 
+*/
+void show_turn(Game * game);
 #endif 

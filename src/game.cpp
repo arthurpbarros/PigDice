@@ -25,7 +25,7 @@ void play(Game * game){
 void capture_events(Game * game){
 	string res;
 	cout << "Digite algo para SEGURAR o dado ou Tecle [ENTER] para ROLAR o dado" << endl;
-	cin.ignore();
+	cin.ignore(); // CHAMAR FUNÇÃO "LIMPAR BUFFER CIN"
 	getline(cin,res);
 	int vez = game->vez % game->n;
 	/* 

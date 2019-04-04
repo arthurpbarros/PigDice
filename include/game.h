@@ -40,8 +40,12 @@ int roll (const Dice * dice);
 * @return Retorna se os parâmetros são válidos
 */
 bool input_params(Game & game);
-/*! Brief Passa a vez e exibe qual jogador ira jogar 
+/*! Brief Passa a vez e exibe qual jogador irá jogar 
 * @param struct Game 
 */
 void show_turn(Game * game);
+/*! Brief Exibe a pontuação dos jogadores 
+* @param stuct Game
+*/
+void show_score(Game * game);
 #endif 

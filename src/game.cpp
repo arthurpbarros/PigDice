@@ -97,5 +97,18 @@ void show_turn(Game * game){
 		oss << game->players[game->vez % game->n].id;
 	}
 	cout << oss.str() << endl;
-	//chamar funcao show_score(game)
+}
+void show_score(Game * game){
+	std::ostringstream oss;
+	oss << "---------------------------------------\n";
+	int i;
+	for (i = 0; i < n;i++){
+		if(game->players[i].is_ia){
+			oss << " IA | " << game->players[i].total << "\n";
+		}else{
+			oss << " J" << game->players[i].id << " | " << game->players[i].total << "\n";
+		}
+	}
+	oss << "---------------------------------------\n";
+	cout << oss.str() << endl;
 }

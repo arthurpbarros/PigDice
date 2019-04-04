@@ -8,7 +8,6 @@ bool flow(const Game & g){
 		}
 	}
 	return true;
-
 }
 void hold(Player *p){
 	p->total += p->partial;
@@ -29,6 +28,10 @@ void capture_events(Game * game){
 	cin.ignore();
 	getline(cin,res);
 	int vez = game->vez % game->n;
+	/* 
+	* LUCAS, AQUI SE COLOCA A ESCOLHA DA I.A
+	* use game->players[game->vez % game->n].is_ia para saber se o player atual é I.A.
+	*/
 	if(res == ""){
 		//cout << "rolar" << endl;
 		play(game);
@@ -94,4 +97,5 @@ void show_turn(Game * game){
 		oss << game->players[game->vez % game->n].id;
 	}
 	cout << oss.str() << endl;
+	//chamar funcao show_score(game)
 }

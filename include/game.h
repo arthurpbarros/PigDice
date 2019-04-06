@@ -1,8 +1,11 @@
-#ifndef GAME_h
+#ifndef GAME_H
 #define GAME_H
+#include "ia.h"
 #include "objects.h"
+#include <limits> //ignore
 #include <iostream> //cin,cout
 #include <stdlib.h> //rand
+#include <cstdlib>
 #include <time.h> //time
 #include <sstream>//osstream
 #include <string>

@@ -4,7 +4,6 @@ int main(){
 	if(input_params(game)){ //Se os parametros do jogo foram dados
 		while(flow(game)){ //Se alguém ganhou
 			capture_events(&game);
-			show_score(&game);
 		}
 	}
 }

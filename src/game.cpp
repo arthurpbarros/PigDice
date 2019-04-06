@@ -4,6 +4,7 @@ bool flow(const Game & g){
 	for(i = 0; i < g.n;i++){
 		if(g.players[i].total >= 100){
 			winner(&g.players[i]);
+			free (g.players);
 			return false;
 		}
 	}
@@ -11,9 +12,20 @@ bool flow(const Game & g){
 }
 void hold(Player *p){
 	p->total += p->partial;
+	if(p->is_ia){
+		cout << "--------> I.A segurou o Dado.\n";
+	}else{
+		cout << "--------> Jogador " << p->id << " segurou o Dado.\n";
+	}
+
 }
 void play(Game * game){
 	int face = roll(&game->dice);
+	if(game->players[game->vez].is_ia){
+		cout << "--------> I.A rolou o Dado e obteve " << face << "\n";
+	}else{
+		cout << "--------> Jogador " << game->players[game->vez].id << " rolou o Dado e obteve " << face << "\n";
+	}
 	size_t * score_partial = &game->players[game->vez].partial;
 	if(face == 1){
 		*score_partial += 0; //Zera a pontuação parcial
@@ -22,24 +34,34 @@ void play(Game * game){
 		*score_partial += face;
 	}
 }
-void capture_events(Game * game){
-	string res;
-	cout << "Digite algo para SEGURAR o dado ou Tecle [ENTER] para ROLAR o dado" << endl;
-	cin.ignore(); // CHAMAR FUNÇÃO "LIMPAR BUFFER CIN"
-	getline(cin,res);
-	int vez = game->vez % game->n;
-	/* 
-	* LUCAS, AQUI SE COLOCA A ESCOLHA DA I.A
-	* use game->players[game->vez % game->n].is_ia para saber se o player atual é I.A.
-	*/
-	if(res == ""){
-		//cout << "rolar" << endl;
-		play(game);
-	}else{
-		//cout << "segurar" << endl;
-		hold(&game->players[vez]);
-		show_turn(game);
-	}
+void capture_events(Game * game) {
+    size_t vez = game->vez % game->n;
+    size_t id_ia = getIdIA( game->players, game->n );
+    if ( vez == id_ia ){
+        bool meta_alcancada = metaAtingida( game->players, game->n );
+        if ( !meta_alcancada ){
+            play(game);
+        } // end inner if
+        else{
+            hold(&game->players[id_ia]);
+    		show_turn(game);
+        } // end else
+    } // end outer if
+    else{
+      	char res;
+        cout << "Jogador " << game->players[vez].id;
+        cout << ", Digite a para SEGURAR o dado ou Tecle [ENTER] para ROLAR o dado" << endl;
+    	cin.get(res);
+        if(res != 'a'){
+    		//cout << "rolar" << endl;
+    		play(game);
+    	}else{
+    		//cout << "segurar" << endl;
+    		hold(&game->players[vez]);
+    		show_turn(game);
+    	}
+    } // end else
+    show_score(game);
 }
 void winner(const Player * p){
 	std::ostringstream oss;
@@ -80,6 +102,7 @@ bool input_params(Game & game){
 		for(i = 0; i < n+1;i++){
 			game.players[i].id = i+1; //Ids começam a partir do 1.
 		}
+		//cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
 		return true;
 	}else{
 		return false;
@@ -93,16 +116,17 @@ void show_turn(Game * game){
 	if(player_is_ia){
 		oss << "A I.A !!!!!!!!!";
 	}else{
-		oss << "O JOGADOR !!!!!!!!";
+		oss << "O JOGADOR ";
 		oss << game->players[game->vez % game->n].id;
+		oss << "!!!!!!!!!";
 	}
 	cout << oss.str() << endl;
 }
 void show_score(Game * game){
 	std::ostringstream oss;
 	oss << "---------------------------------------\n";
-	int i;
-	for (i = 0; i < n;i++){
+	size_t i;
+	for (i = 0; i < game->n;i++){
 		if(game->players[i].is_ia){
 			oss << " IA | " << game->players[i].total << "\n";
 		}else{

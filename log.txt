@@ -1,3 +1,0 @@
-Informamos, que na segunda vez que um jogador fisico tecla enter para rolar um dado o programa trava.
-
-att, 

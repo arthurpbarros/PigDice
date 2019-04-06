@@ -2,15 +2,15 @@
 
 ## Requisitos
 * cmake
-<br> Para instalar o **cmake**, use *apt-get install cmake*
+<br> Para instalar o **cmake**, use ```apt-get install cmake```
 ## Compilação
 Para compilar, use os seguintes comandos em um prompt de comando:
-
-1. mdkir build
-2. cd build
-3. cmake ..
-4. make
-
+```
+mdkir build
+cd build
+cmake ..
+make
+```
 ## Autores 
-Arthur Pinheiro <br> 
-Lucas Bertuleza
+Arthur Pinheiro de Barros<br> 
+Lucas Costa Bertuleza

@@ -1,4 +1,4 @@
-#include "../include/ia.h"
+#include "ia.h"
 
 bool metaAtingida( Player * players, size_t n )
 {

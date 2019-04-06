@@ -1,4 +1,4 @@
-#include "../include/game.h"
+#include "game.h"
 bool flow(const Game & g){
 	size_t i;
 	for(i = 0; i < g.n;i++){

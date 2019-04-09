@@ -21,10 +21,10 @@ void hold(Player *p){
 }
 void play(Game * game){
 	int face = roll(&game->dice);
-	if(game->players[game->vez].is_ia){
+	if(game->players[game->vez % game->n].is_ia){
 		cout << "--------> I.A rolou o Dado e obteve " << face << "\n";
 	}else{
-		cout << "--------> Jogador " << game->players[game->vez].id << " rolou o Dado e obteve " << face << "\n";
+		cout << "--------> Jogador " << game->players[game->vez % game->n].id << " rolou o Dado e obteve " << face << "\n";
 	}
 	size_t * score_partial = &game->players[game->vez].partial;
 	if(face == 1){
@@ -48,11 +48,11 @@ void capture_events(Game * game) {
         } // end else
     } // end outer if
     else{
-      	char res;
+      	string res;
         cout << "Jogador " << game->players[vez].id;
-        cout << ", Digite a para SEGURAR o dado ou Tecle [ENTER] para ROLAR o dado" << endl;
-    	cin.get(res);
-        if(res != 'a'){
+        cout << ", Digite 'a' para SEGURAR o dado ou Tecle outro caracter para ROLAR o dado: " << endl;
+    	getline(cin,res);
+        if(res.empty()){
     		//cout << "rolar" << endl;
     		play(game);
     	}else{
@@ -97,14 +97,14 @@ bool input_params(Game & game){
 		size_t id_ia = 1 + rand() % (n+1); //Escolhe um jogador para ser a I.A.
 		game.players[id_ia-1].is_ia = 1; //Define o jogador como I.A.
 		cout << "A I.A É O " << id_ia << " elemento" << endl;
-		
 		//Definição dos id
 		for(i = 0; i < n+1;i++){
 			game.players[i].id = i+1; //Ids começam a partir do 1.
 		}
-		//cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+		cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
 		return true;
 	}else{
+		cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
 		return false;
 	}
 }

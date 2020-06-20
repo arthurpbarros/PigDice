@@ -53,7 +53,7 @@ void capture_events(Game * game) {
         cout << "Digite 'a' para SEGURAR o dado ou Tecle ";
 		cout << "outro caracter para ROLAR o dado: " << endl;
     	getline(cin,res);
-        if(res.empty()){
+        if(res.compare("a") != 0){
     		//cout << "rolar" << endl;
     		play(game);
     	}else{
